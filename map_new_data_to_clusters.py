@@ -1,3 +1,40 @@
+# MODEL SAVED
+# After HGB model is trained in Stage A, save it
+model_cache_path = out_dir / "cache" / "hgb_model.pkl"
+with open(model_cache_path, 'wb') as f:
+    pickle.dump(hgb, f)
+log.info(f"Saved HGB model to {model_cache_path}")
+
+# Save SHAP explainer
+import shap
+shap_explainer = shap.TreeExplainer(hgb)
+explainer_cache_path = out_dir / "cache" / "shap_explainer.pkl"
+with open(explainer_cache_path, 'wb') as f:
+    pickle.dump(shap_explainer, f)
+log.info(f"Saved SHAP explainer to {explainer_cache_path}")
+
+# Save UMAP reducer after it's fit
+umap_cache_path = out_dir / "cache" / f"umap_reducer_{run_name}.pkl"
+with open(umap_cache_path, 'wb') as f:
+    pickle.dump(umap_reducer, f)
+log.info(f"Saved UMAP reducer to {umap_cache_path}")
+
+# Save HDBSCAN model after it's fit
+hdbscan_cache_path = out_dir / "cache" / f"hdbscan_model_{run_name}.pkl"
+with open(hdbscan_cache_path, 'wb') as f:
+    pickle.dump(clusterer, f)
+log.info(f"Saved HDBSCAN to {hdbscan_cache_path}")
+
+# Save top SHAP features
+features_cache_path = out_dir / "cache" / f"top_shap_features_{run_name}.pkl"
+with open(features_cache_path, 'wb') as f:
+    pickle.dump(top_feature_indices, f)
+log.info(f"Saved top SHAP features to {features_cache_path}")
+
+
+
+# VALIDATION
+
 """
 Map new dataset to existing clusters from mo_discovery.py output.
 
